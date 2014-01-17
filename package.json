@@ -29,5 +29,8 @@
   "bugs": {
     "url": "https://github.com/floatdrop/hashdir/issues"
   },
-  "homepage": "https://github.com/floatdrop/hashdir"
+  "homepage": "https://github.com/floatdrop/hashdir",
+  "dependencies": {
+    "walk": "~2.2.1"
+  }
 }

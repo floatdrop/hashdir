@@ -1,30 +1,38 @@
 'use strict';
 
-var walk = require('node-walk'),
+var walk = require('walk'),
     fs = require('fs'),
     crypto = require('crypto'),
-    shasum = crypto.createHash('sha1');
+    path = require('path');
 
-var f = function (path, opts, cb) {
+var f = function (directory, opts, cb) {
     if (typeof opts === 'function') {
         cb = opts;
         opts = {};
     }
 
-    var walker = walk.walk(path, opts);
+    opts.filters = opts.filters || [];
+    opts.filters = opts.filters.concat([directory]);
+
+    directory = path.resolve(directory);
+
+    var walker = walk.walk(directory, opts);
     var result = {};
 
-    walker.on('directories', function (root, dirStatsArray, next) {
-        result[root] = undefined;
+    walker.on('directory', function (root, dirStatsArray, next) {
+        var fullpath = path.join(root, dirStatsArray.name);
+        result[path.relative(directory, fullpath)] = undefined;
         next();
     });
 
     walker.on('file', function (root, fileStats, next) {
-        fs.createReadStream(fileStats.name)
-            .on('data', shasum.bind(shasum))
+        var fullpath = path.join(root, fileStats.name);
+        var shasum = crypto.createHash('sha1');
+        fs.createReadStream(fullpath)
+            .on('data', shasum.update.bind(shasum))
             .on('error', next)
             .on('end', function () {
-                result[root] = shasum.digest('hex');
+                result[path.relative(directory, fullpath)] = shasum.digest('hex');
                 next();
             });
     });
