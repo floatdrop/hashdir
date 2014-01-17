@@ -1,6 +1,6 @@
 {
   "name": "hashdir",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Hashes content in directory and returning object with file structure and hashes (useful in tests)",
   "main": "index.js",
   "scripts": {
