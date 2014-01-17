@@ -36,11 +36,17 @@ hashdir('directory', function (err, result) {
 
 ### hashdir(path[, opts], cb)
 
-__path__: path to directory, that you want to be hashed.
+__path__
 
-__Options__: Object, that passed to [`walk`](https://npmjs.org/package/walk) module.
+`String`, path to directory, that you want to be hashed.
 
-__Callback__: function, that recieves `error` as first argument and `result` object in second.
+__opts__
+
+`Object`, that passed to [`walk`](https://npmjs.org/package/walk) module.
+
+__cb__
+
+`Function`, that recieves `error` as first argument and `result` object in second.
 
 ## License
 
