@@ -6,6 +6,11 @@ lib-cov
 *.out
 *.pid
 *.gz
+.tags
+.tags_sorted_by_file
+.gemtags
+.DS_Store
+coverage
 
 pids
 logs
